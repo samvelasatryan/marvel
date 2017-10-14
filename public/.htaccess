@@ -1,0 +1,145 @@
+php_value upload_max_filesize 20M
+php_value post_max_size 20M
+php_value max_execution_time 200
+php_value max_input_time 200
+ServerSignature Off
+
+<FilesMatch "\.(cfg|pl|htaccess|htpasswd|ini|phps|fla|psd|log|sh|sql|inc|tpl|svn|git|cvs|phtml|asp)$">
+Order Allow,Deny
+Deny from All
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Block unsafe system components
+    # s-0017
+    RewriteRule /phpmy/ - [F,L]
+    RewriteRule /phpmyadmin/ - [F,L]
+    RewriteRule /phpMy/ - [F,L]
+    RewriteRule /_phpmyadmin/ - [F,L]
+    RewriteRule /pma/ - [F,L]
+    RewriteRule /MyAdmin/ - [F,L]
+    RewriteRule scripts/setup.php - [F,L]
+    RewriteRule /backup - [F,L]
+    RewriteRule dumper.php - [F,L]
+    RewriteRule /admin/phpmyadmin  - [F,L]
+    RewriteRule /admin/pma - [F,L]
+    RewriteRule /dbadmin - [F,L]
+    RewriteRule /mysql-admin - [F,L]
+    RewriteRule /mysqlmanager - [F,L]
+    RewriteRule /mysql - [F,L]
+    RewriteRule /phpadmin - [F,L]
+    RewriteRule /phpmanager - [F,L]
+    RewriteRule /phpmyadmin1 - [F,L]
+    RewriteRule /phpmyadmin2 - [F,L]
+    RewriteRule /phpMyAdmin-2 - [F,L]
+    RewriteRule /php-myadmin - [F,L]
+    RewriteRule /phpmy-admin - [F,L]
+    RewriteRule /pma2005 - [F,L]
+    RewriteRule /PMA2005 - [F,L]
+    RewriteRule /p/m/a - [F,L]
+    RewriteRule /pma - [F,L]
+    RewriteRule /sqlmanager - [F,L]
+    RewriteRule /sqlweb - [F,L]
+    RewriteRule /typo3/phpmyadmin - [F,L]
+    RewriteRule /webadmin - [F,L]
+    RewriteRule /webdb - [F,L]
+    RewriteRule /web/phpMyAdmin - [F,L]
+    RewriteRule /xampp/phpmyadmin - [F,L]
+    RewriteRule /myadminscripts/setup.php - [F,L]
+    RewriteRule /mysqladmin - [F,L]
+    RewriteRule /php-my-admin - [F,L]
+    RewriteRule /phpmyadmin - [F,L]
+    RewriteRule /websql - [F,L]
+    RewriteRule /myadmin - [F,L]
+    RewriteRule /sql/ - [F,L]
+    RewriteRule /mysql/ - [F,L]
+    RewriteRule /setup.php?dir - [F,L]
+    RewriteRule /MSOffice/cltreq.asp - [F,L]
+    RewriteRule ///?_SERVER[DOCUMENT_ROOT] - [F,L]
+    RewriteRule //?_SERVER[DOCUMENT_ROOT] - [F,L]
+    RewriteRule /pagead/test_domain.js - [F,L]
+    RewriteRule /pagead/osd.js - [F,L]
+    RewriteRule /pagead/expansion_embed.js - [F,L]
+    RewriteRule /pagead/render_ads.js - [F,L]
+    RewriteRule /pagead/atf.js - [F,L]
+    RewriteRule (.*)\cmd.exe$ - [F,L]
+
+    # Block parasite traffic
+    # s-0018
+    RewriteCond %{HTTP_REFERER} iskalko\.ru [NC,OR]
+    RewriteCond %{HTTP_REFERER} buttons-for-website\.com
+    RewriteCond %{HTTP_REFERER} semalt.semalt\.com
+    RewriteCond %{HTTP_REFERER} cenoval\.ru
+    RewriteCond %{HTTP_REFERER} darodar\.com
+    RewriteCond %{HTTP_REFERER} cenokos\.ru
+    RewriteCond %{HTTP_REFERER} seoexperimenty\.ru
+    RewriteCond %{HTTP_REFERER} gobongo\.info
+    RewriteCond %{HTTP_REFERER} adcash\.com
+    RewriteCond %{HTTP_REFERER} websocial\.me
+    RewriteCond %{HTTP_REFERER} cityadspix\.com
+    RewriteCond %{HTTP_REFERER} luxup\.ru
+    RewriteCond %{HTTP_REFERER} superiends\.org
+    RewriteCond %{HTTP_REFERER} socialseet\.ru
+    RewriteCond %{HTTP_REFERER} screentoolkit\.com
+    RewriteCond %{HTTP_REFERER} cur\.lv
+    RewriteRule .* - [F]
+</IfModule>
+
+## Turn off your server signature ##
+<IfModule mod_headers.c>
+    Header unset X-Powered-By
+    Header set Connection keep-alive
+    #Header always append X-Frame-Options SAMEORIGIN
+    #Header set X-XSS-Protection "1; mode=block"
+    Header append Vary User-Agent env=!dont-vary
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access 1 month"
+    ExpiresByType image/jpeg "access 1 month"
+    ExpiresByType image/png "access 1 month"
+    ExpiresByType image/webp "access 1 month"
+    ExpiresByType image/gif "access 1 month"
+    ExpiresByType image/svg+xml "access 1 month"
+    ExpiresByType image/x-icon "access 1 month"
+    ExpiresByType image/bmp "access 1 month"
+    ExpiresByType image/djvu "access 1 month"
+    ExpiresByType application/x-shockwave-flash "access 1 month"
+    ExpiresByType application/xml "access 1 month"
+    ExpiresByType application/xhtml+xml "access 1 month"
+    ExpiresByType text/js "access 1 month"
+    ExpiresByType text/javascript "access 1 month"
+    ExpiresByType application/javascript "access 1 month"
+    ExpiresByType application/x-javascript "access 1 month"
+    ExpiresByType application/json "access 1 month"
+    ExpiresByType text/css "access 1 month"
+    ExpiresByType text/html "access plus 2 days"
+    ExpiresByType text/htm "access plus 2 days"
+    ExpiresByType application/cgi "access 1 month"
+    ExpiresByType application/pl "access 1 month"
+    ExpiresDefault "access 1 days"
+</IfModule>
+
+<IfModule php5_module>
+    php_flag session.cookie_httponly on
+</IfModule>

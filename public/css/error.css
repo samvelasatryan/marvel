@@ -1,0 +1,27 @@
+.pageContent {
+	padding: 30px;
+	color: #a943b0;
+	text-align: center;
+}
+.pageContent h1 {
+	font-size: 30px;
+	font-family: musicBoxFont;
+}
+.pageContent h2 {
+	font-size: 28px;
+	font-family: musicBoxUbuntuFont;
+	margin-bottom: 30px;
+}
+.pageContent a {
+	color: #364b57;
+	font-weight: bold;
+}
+@media screen and (max-width: 990px) {
+    footer {
+	    margin-top: 40px !important;
+	}
+	footer .footer-content a, footer .footer-content span,
+	footer .infoText {
+	    color: #364b57 !important;
+	}
+}
